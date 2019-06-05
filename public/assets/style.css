@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fff;
+}
+
+.container {
+    display: block;
+}
+.container-fluid {
+    margin: 0px 120px;
+}
+.center-text {
+    text-align: center;
+}
+.center-elem {
+    display: block;
+    margin: 0 auto;
+}
+.center-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.mt-16 {
+    margin-top: 16px;
+}
+.mr-16 {
+    margin-right: 16px;
+}
+.mb-16 {
+    margin-bottom: 16px;
+}
+.ml-16 {
+    margin-left: 16px;
+}
+.mt-large {
+    margin-top: 60px;
+}
+.pr-16 {
+    padding-right: 16px;
+}
+.pl-16 {
+    padding-left: 16px;
+}
+.pb-16 {
+    padding-bottom: 16px;
+}
+.border-bottom {
+    border-bottom: 1px solid #f2f2f2;
+}
+.searchbar {
+    
+    height: 34px;
+    font-size: 1.2em;
+    padding: 0 20px;
+    border-radius: 24px;
+    border: 1px solid #dfe1e5;
+    outline: none;
+}
+.short {
+    width: 320px;
+}
+.long {
+    width: 520px;
+}
+.title {
+    font-family: 'ZCOOL KuaiLe', cursive;
+}
+.small {
+    font-size: 25px;
+}
+.large {
+    font-size: 45px;
+}
+.blue {
+    color: #4285f4;
+}
+.red {
+    color: #ea4335;
+}
+.yellow {
+    color: #fbbc05;
+}
+.green {
+    color: #34a853;
+}
+.search-btns {
+    background-color: #f2f2f2;
+    color: #5F6368;
+    border: 1px solid #f2f2f2;
+    height: 36px;
+    line-height: 27px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.search-btns:hover {
+    border-color: #5F6368;
+}
+.bar {
+    height: 66px;
+}
+#book-result {
+    margin: 0 20px;
+}
+#book-result .item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 10px 0;
+}
+.book-img {
+    width: 100px;
+    max-width: 100px;
+    margin-right: 10px;
+}
+.book-img img {
+    width: inherit;
+}
+
+.result-info span {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f2f2f2;
+    color: #5F6368;
+    font-weight: bolder;
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid #f2f2f2;
+}
+.result-info span:hover {
+    border-color: #5F6368;
+}
+
+.i-title {
+    font-family: 'Slabo 27px', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #6b1515;
+}
+.i-author {
+    font-family: 'Courgette', cursive;
+    color: #494949;
+}
+.i-info {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #343434;
+    color: #f9f9f9;
+    font-weight: bolder;
+    padding: 2px 5px;
+    border-radius: 4px;
+    display: inline;
+}
+/* Loader */
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 6px;
+    width: 13px;
+    background: #494949;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 6px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 26px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 45px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 6px;
+      height: 51px;
+    }
+    50%, 100% {
+      top: 19px;
+      height: 26px;
+    }
+  }
+  
