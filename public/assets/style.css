@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    cursor: default;
 }
 
 body {
@@ -153,6 +154,29 @@ body {
     border-radius: 4px;
     display: inline;
 }
+#download-page {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    border: 1px solid #343434;
+    background-color: #eeeeee;
+}
+.d-btns {
+    background-color: #fbbc05;
+    color: #fff;
+    border: 1px solid #fbbc05;
+    height: 36px;
+    line-height: 27px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+tr {
+    border-bottom: 1px solid #adadad;
+}
+.d-btns:hover {
+    border-color: #343434;
+}
 /* Loader */
 .lds-facebook {
     display: inline-block;
@@ -190,4 +214,13 @@ body {
       height: 26px;
     }
   }
-  
+/*  Disabling hightlight */
+::-moz-selection {
+    background-color: transparent;
+    color: inherit;
+}
+
+::selection {
+    background-color: transparent;
+    color: inherit;
+}
