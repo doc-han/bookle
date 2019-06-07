@@ -1,11 +1,14 @@
 $ = jQuery = require('jquery');
-let findBook = require('libgenesis');
+let findBook = require('libgenesis'); 
+const mtDL = require('mt-files-downloader');
+let downloader = new mtDL();
 let search = $("#search-page");
 let result = $("#result-page");
 let loader = $(".loader");
 let searchTerm = "";
 result.hide();
 loader.hide();
+let bookId = 1;
 
 function searchNow(){
     $(".searchbar").val(searchTerm);
@@ -23,6 +26,9 @@ function searchNow(){
                     <div class="i-author">${el.author}</div>
                     <div class="i-info mb-16 mt-16">
                         ${el.language} | ${el.filesize} | ${el.extension.toUpperCase()}
+                    </div>
+                    <div>
+                    <button onclick="dl('${el.title}.${el.extension}','${el.download}')" class="d-btns pr-16 pl-16 mt-16">Download</button>
                     </div>
             </div>
         </div>`;
@@ -47,3 +53,10 @@ $(".searchbar").on('keyup',function(e){
         searchNow();
     }
 })
+
+function dl(filename,url){
+  let name = filename;
+  let newDl = new download(url, name, bookId++, downloader)
+  newDl.startDownload() 
+}
+
