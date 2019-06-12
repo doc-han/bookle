@@ -1,38 +1,82 @@
 $ = jQuery = require('jquery');
 let findBook = require('libgenesis'); 
-const mtDL = require('mt-files-downloader');
-let downloader = new mtDL();
+let remote = require('electron').remote;
 let search = $("#search-page");
 let result = $("#result-page");
 let loader = $(".loader");
 let searchTerm = "";
+let fileName;
 result.hide();
 loader.hide();
-let bookId = 1;
+let uid = 1;
+
+remote.getCurrentWebContents().session.on('will-download',function(event,item,content){
+    //event.preventDefault();
+    item.setSavePath(`${remote.app.getPath('downloads')}/Bookle/${item.getFilename()}.${item.getMimeType}`);
+    item.setSaveDialogOptions({
+        filters: [
+          { name: 'Book', extensions: [`${item.getMimeType}`] }
+        ]
+      })
+    injectCode(item.getFilename());
+    item.on('updated', (event, state) => {
+        if (state === 'interrupted') {
+          item.resume();
+        } else if (state === 'progressing') {
+          if (item.isPaused()) {
+            // nothing done here
+          } else {
+            let t = item.getTotalBytes();
+            let compl = item.getReceivedBytes();
+            let p = ((compl/t) * 100).toFixed(2);
+            $(`#abc${uid} .d-pro`).text(`${p}%`);
+          }
+        }
+      })
+      item.once('done', (event, state) => {
+        if (state === 'completed') {
+            $(`#abc${uid} .d-pro`).text(`done`);
+        } else {
+            $(`#abc${uid} .d-pro`).text(`error`);
+        }
+      })
+})
+
+function injectCode (filename) {
+    let code = `<tr id="abc${uid}">
+        <td>${filename}</td>
+        <td class="d-pro"></td>
+    </tr>`
+    $('tbody').prepend(code)
+}
 
 function searchNow(){
     $(".searchbar").val(searchTerm);
     let template = "";
     loader.show();
     findBook(searchTerm).then(res=>{
-        console.log(res);
-        res.forEach(el => {
-            template += `<div class="item border-bottom">
-            <div class="book-img">
-                <img src="${el.bookImage}" alt="">
-            </div>
-            <div class="book-info">
-                    <div class="i-title">${el.title}</div>
-                    <div class="i-author">${el.author}</div>
-                    <div class="i-info mb-16 mt-16">
-                        ${el.language} | ${el.filesize} | ${el.extension.toUpperCase()}
-                    </div>
-                    <div>
-                    <button onclick="dl('${el.title}.${el.extension}','${el.download}')" class="d-btns pr-16 pl-16 mt-16">Download</button>
-                    </div>
-            </div>
-        </div>`;
-        });
+        if(res){
+            res.forEach(el => {
+                template += `<div class="item border-bottom">
+                <div class="book-img">
+                    <img src="${el.bookImage}" alt="">
+                </div>
+                <div class="book-info">
+                        <div class="i-title">${el.title}</div>
+                        <div class="i-author">${el.author}</div>
+                        <div class="i-info mb-16 mt-16">
+                            ${el.language} | ${el.filesize} | ${el.extension.toUpperCase()}
+                        </div>
+                        <div>
+                        <button onclick=dl("${encodeURIComponent(el.title)}.${el.extension}","${encodeURIComponent(el.download)}") class="d-btns pr-16 pl-16 mt-16">Download</button>
+                        </div>
+                </div>
+            </div>`;
+            });
+        }else{
+            template = `<div class="center-text"><h3>No book found!</h3></div>`
+        }
+        
         $("#book-result").html(template);
         search.hide(500);
         result.show(500);
@@ -55,8 +99,8 @@ $(".searchbar").on('keyup',function(e){
 })
 
 function dl(filename,url){
-  let name = filename;
-  let newDl = new download(url, name, bookId++, downloader)
-  newDl.startDownload() 
+    console.log(decodeURIComponent(url)+" Starting download!!!")
+    uid++;
+    remote.getCurrentWebContents().downloadURL(decodeURIComponent(url));
 }
 
