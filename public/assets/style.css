@@ -155,10 +155,10 @@ body {
     display: inline;
 }
 #download-page {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    width: 200px;
+    width: 250px;
     border: 1px solid #343434;
     background-color: #eeeeee;
 }
