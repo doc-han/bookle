@@ -12,6 +12,7 @@ function createWindow () {
     width: 800,
     minWidth: 800,
     height: 600,
+    show: false,
     title: 'Bookle - Get all paid books for free',
     icon: path.join(__dirname + '/public/assets/icon.png'),
     webPreferences: {
@@ -23,7 +24,11 @@ function createWindow () {
   mainWindow.loadFile('public/index.html')
   mainWindow.setMenu(null)
   // Open the DevTools.
-  //npm  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
+
+  mainWindow.on('ready-to-show', function(){
+    mainWindow.show();
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
