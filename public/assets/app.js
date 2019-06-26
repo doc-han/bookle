@@ -13,12 +13,8 @@ let uid = 1;
 remote.getCurrentWebContents().session.on('will-download',function(event,item,content){
     //event.preventDefault();
     item.setSavePath(`${remote.app.getPath('downloads')}/Bookle/${item.getFilename()}.${item.getMimeType}`);
-    item.setSaveDialogOptions({
-        filters: [
-          { name: 'Book', extensions: [`${item.getMimeType}`] }
-        ]
-      })
-    injectCode(item.getFilename());
+    item.uid = `abc${uid++}`;
+    injectCode(item.getFilename(), item.uid);
     item.on('updated', (event, state) => {
         if (state === 'interrupted') {
           item.resume();
@@ -29,21 +25,21 @@ remote.getCurrentWebContents().session.on('will-download',function(event,item,co
             let t = item.getTotalBytes();
             let compl = item.getReceivedBytes();
             let p = ((compl/t) * 100).toFixed(2);
-            $(`#abc${uid} .d-pro`).text(`${p}%`);
+            $(`#${item.uid} .d-pro`).text(`${p}%`);
           }
         }
       })
       item.once('done', (event, state) => {
         if (state === 'completed') {
-            $(`#abc${uid} .d-pro`).text(`done`);
+            $(`#${item.uid} .d-pro`).text(`done`);
         } else {
-            $(`#abc${uid} .d-pro`).text(`error`);
+            $(`#${item.uid} .d-pro`).text(`error`);
         }
       })
 })
 
-function injectCode (filename) {
-    let code = `<tr id="abc${uid}">
+function injectCode (filename, downloadId) {
+    let code = `<tr id="${downloadId}">
         <td>${filename}</td>
         <td class="d-pro"></td>
     </tr>`
@@ -103,4 +99,5 @@ function dl(filename,url){
     uid++;
     remote.getCurrentWebContents().downloadURL(decodeURIComponent(url));
 }
+
 
