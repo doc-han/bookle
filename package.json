@@ -37,7 +37,7 @@
     "electron-packager": "^13.1.1"
   },
   "dependencies": {
-    "follow-redirects": "^1.7.0",
+    "follow-redirects": "^1.14.8",
     "jquery": "^3.4.1",
     "libgenesis": "^1.1.9",
     "mt-files-downloader": "^0.2.5",
